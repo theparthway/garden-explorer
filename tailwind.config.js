@@ -10,6 +10,12 @@ module.exports = {
         satoshi: ['Satoshi', 'sans-serif'],
       },
     },
+    colors: {
+      'border': '#554B6A',
+      'light-gray': '#E9F0F5',
+      'progress': '#B6E5FF',
+      'complete': '#76EEC4'
+    }
   },
   plugins: [],
 }

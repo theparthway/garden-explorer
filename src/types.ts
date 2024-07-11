@@ -5,10 +5,8 @@ export interface Transaction {
     fromAddress: string;
     sentAmount: number;
     sentAsset: string;
-    sentChain: string;
     receivedAmount: number;
     receivedAsset: string;
-    receivedChain: string;
     status: string;
   }
   
