@@ -2,7 +2,9 @@
 export interface Transaction {
     createdAt: string;
     id: string;
-    fromAddress: string;
+    depositAddress: string;
+    receiveAddress: string;
+    refundAddress: string;
     sentAmount: number;
     sentAsset: string;
     receivedAmount: number;

@@ -1,46 +1,14 @@
 // src/components/Table.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useOrderbookStore } from '../store/useOrderbookStore';
 import { Transaction } from '../types';
-import BTCAsset from '../assets/icons/BTCAsset.svg';
-import WBTCAsset from '../assets/icons/WBTCAsset.svg';
-import ETHAsset from '../assets/icons/ETHAsset.svg';
-import arbitrumChain from '../assets/icons/arbitrumChain.svg';
+
 import complete from '../assets/complete.svg';
 import progress from '../assets/progress.svg';
 
-interface TableProps {
-  // Optional: Define props if needed
-}
-
-const Table: React.FC<TableProps> = () => {
-  const [data, setData] = useState<Transaction[]>([]);
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
-  const fetchOrders = async () => {
-    try {
-      const response = await fetch('https://api.garden.finance/orders');
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      const orders = await response.json();
-      const formattedData: Transaction[] = orders.map((order: any) => ({
-        createdAt: new Date(order.CreatedAt).toLocaleString(),
-        id: order.ID.toString(),
-        fromAddress: order.maker.substring(0, 4) + "..." + order.maker.substring(38, 43),
-        sentAmount: parseFloat(order.price),
-        sentAsset: order.orderPair.substring(0, order.orderPair.indexOf('-')), // Replace with actual asset logic if available in API
-        receivedAmount: 0, // Replace with actual received amount logic
-        receivedAsset: order.orderPair.substring(order.orderPair.indexOf('-') + 1, order.orderPair.length), // Replace with actual received asset logic
-        status: order.status === 3 ? 'Complete' : 'Progress', // Replace with actual status logic
-      }));
-      setData(formattedData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+const Table: React.FC = () => {
+  const { orders, fetchOrders } = useOrderbookStore();
 
   const getIcons = (asset: string) => {
     if (asset.startsWith('ethereum_arbitrum')) {
@@ -57,6 +25,10 @@ const Table: React.FC<TableProps> = () => {
     "ethereum_sepolia:0x130Ff59B75a415d0bcCc2e996acAf27ce70fD5eF": "ETH Sepolia",
     "ethereum_arbitrum:0x203DAC25763aE783Ad532A035FfF33d8df9437eE": "ETH Arbitrum",
   };
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
 
   return (
     <div className="overflow-x-auto my-8 border-2 border-border rounded-lg">
@@ -92,11 +64,13 @@ const Table: React.FC<TableProps> = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((transaction) => (
+          {orders.map((transaction: Transaction) => (
             <tr key={transaction.id}>
               <td className="px-6 py-4 border-b border-gray-200">{transaction.createdAt}</td>
-              <td className="px-6 py-4 border-b border-gray-200">{transaction.id}</td>
-              <td className="px-6 py-4 border-b border-gray-200">{transaction.fromAddress}</td>
+              <td className="px-6 py-4 border-b border-gray-200">
+                <Link to={`/transaction/${transaction.id}`}>{transaction.id}</Link>
+              </td>
+              <td className="px-6 py-4 border-b border-gray-200">{transaction.depositAddress}</td>
               <td className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center gap-2">
                   {transaction.sentAmount}
@@ -123,7 +97,7 @@ const Table: React.FC<TableProps> = () => {
                   )}
                 </div>
               </td>
-              <td className={`px-6 py-4 border-b border-gray-200 `}>
+              <td className={`px-6 py-4 border-b border-gray-200`}>
                 <div className={`flex justify-evenly rounded-full py-2 text-center ${transaction.status === 'Complete' ? 'bg-complete' : 'bg-progress'}`}>
                   {transaction.status}
                   <img src={`${transaction.status === 'Complete' ? complete : progress}`} alt='completed icon' />
