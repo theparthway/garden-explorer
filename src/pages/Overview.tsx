@@ -2,7 +2,6 @@ import React from 'react';
 import SearchBar from '../components/SearchBar';
 import Table from '../components/Table';
 import Info from '../components/Info';
-import { Transaction } from '../types';
 
 const Overview: React.FC = () => {
   const handleSearch = (query: string) => {
@@ -10,7 +9,7 @@ const Overview: React.FC = () => {
   }
 
   return (
-    <div className="py-4 px-36 shadow rounded-lg">
+    <div className="py-4 px-20 shadow rounded-lg">
       <SearchBar onSearch={handleSearch} />
       <Info />
       <Table />

@@ -1,4 +1,3 @@
-// src/utils/orderbookProvider.ts
 export class OrderbookProvider {
     private baseUrl: string;
   
@@ -8,7 +7,7 @@ export class OrderbookProvider {
   
     async getOrders() {
       try {
-        const response = await fetch(`${this.baseUrl}/orders`);
+        const response = await fetch(`${this.baseUrl}/orders?verbose=true`);
         if (!response.ok) {
           throw new Error('Failed to fetch orders');
         }
@@ -21,7 +20,7 @@ export class OrderbookProvider {
   
     async getOrder(id: string) {
       try {
-        const response = await fetch(`${this.baseUrl}/orders/${id}`);
+        const response = await fetch(`${this.baseUrl}/orders/${id}?verbose=true`);
         if (!response.ok) {
           throw new Error('Failed to fetch order');
         }

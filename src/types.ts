@@ -1,14 +1,22 @@
 // src/types.ts
 export interface Transaction {
-    createdAt: string;
-    id: string;
-    depositAddress: string;
-    receiveAddress: string;
-    refundAddress: string;
-    sentAmount: number;
-    sentAsset: string;
-    receivedAmount: number;
-    receivedAsset: string;
+    CreatedAt: string;
+    ID: string;
+    maker: string;
+    taker: string;
+    userBtcWalletAddress: string;
+    initiatorAtomicSwap: {
+      initiatorAddress: string;
+      amount: number;
+      chain: string;
+      asset: string;
+    };
+    followerAtomicSwap: {
+      redeemerAddress: string;
+      amount: number;
+      chain: string;
+      asset: string;
+    }
     status: string;
   }
   
