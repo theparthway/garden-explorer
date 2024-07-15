@@ -48,13 +48,13 @@ const Table: React.FC = () => {
           ))}
         </tbody>
       </table>
-      <div className="flex justify-between mt-4">
+      <div className="flex gap-4 justify-center items-center my-4">
         <button onClick={handlePrevPage} disabled={page === 1} className="bg-light-gray py-2 px-4 rounded-full">
-          Previous
+          {`<`}
         </button>
         <span>Page {page} of ...</span>
         <button onClick={handleNextPage} className="bg-light-gray py-2 px-4 rounded-full">
-          Next
+          {`>`}
         </button>
       </div>
     </div>

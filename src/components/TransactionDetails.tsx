@@ -79,9 +79,10 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
         <table className="min-w-full text-right bg-white border border-border">
           <tbody>
             <tr>
-              <td className="text-left px-4 py-2 font-semibold">ID:</td>
+              <td className="text-left px-4 py-2 font-semibold">Order ID & Status:</td>
               <td className="px-4 py-2">
-                <div className='flex justify-end gap-4'>
+                <div className='flex justify-end items-center gap-4'>
+                  {id}
                   <div
                     className={`flex gap-2 rounded-full p-2 text-center ${
                       status === 'Settled' ? 'bg-complete' : 'bg-progress'
