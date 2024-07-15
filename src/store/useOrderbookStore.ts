@@ -8,7 +8,7 @@ interface OrderbookState {
   fetchOrder: (id: string) => Promise<Transaction | null>;
 }
 
-const orderbookProvider = new OrderbookProvider('https://api.garden.finance');
+const orderbookProvider = new OrderbookProvider(import.meta.env.VITE_API_BASE_URL);
 
 export const useOrderbookStore = create<OrderbookState>((set) => ({
   orders: [],
