@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface BoxProps {
     header: string;
@@ -6,7 +6,7 @@ interface BoxProps {
     change: number;
 }
 
-const Box: React.FC<BoxProps> = ({ header, total, change }) => {
+const Box: FC<BoxProps> = ({ header, total, change }) => {
   return (
     <div className="p-6 rounded-lg border-2 border-border">
       <div className="mb-2 text-lg font-medium">{header}</div>

@@ -1,9 +1,9 @@
-import React from 'react';
+import { FC } from 'react';
 import SearchBar from '../components/SearchBar';
 import Table from '../components/Table';
 import Info from '../components/Info';
 
-const Overview: React.FC = () => {
+const Overview: FC = () => {
   const handleSearch = (query: string) => {
     console.log('Searching for:', query);
   }

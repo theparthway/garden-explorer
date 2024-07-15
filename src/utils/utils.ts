@@ -1,3 +1,8 @@
+import BTCIcon from '../assets/icons/BTCAsset.svg';
+import WBTCIcon from '../assets/icons/WBTCAsset.svg';
+import arbitrumIcon from '../assets/icons/arbitrumChain.svg';
+import evmIcon from '../assets/icons/EVMChain.svg';
+
 export const getTrimmedAddress = (address: string) => 
     `${address.slice(0,6)}...${address.slice(-4)}`;
 
@@ -39,4 +44,22 @@ export const getAssetShorthand = (asset: string) => {
     if (asset === "0x203DAC25763aE783Ad532A035FfF33d8df9437eE" || asset === "0x130Ff59B75a415d0bcCc2e996acAf27ce70fD5eF" || asset === "0xA5E38d098b54C00F10e32E51647086232a9A0afD")
         return "WBTC";
     else return "BTC";
+}
+
+export const getAssetIcon = (asset: string) => {
+    if (asset === "BTC") return BTCIcon;
+    else if (asset === "WBTC") return WBTCIcon;
+    else return "";
+  }
+  
+export const getChainIcon = (chain: string) => {
+    if (chain === "bitcoin") return "";
+    else if (chain === "ethereum_arbitrum") return arbitrumIcon;
+    else if (chain === "ethereum_sepolia" || chain === "ethereum") return evmIcon;
+    else return "";
+}
+
+export const getValidAmount = (swap: { amount: number }) => {
+    if (swap && swap.amount.toString().length < 10) return swap.amount;
+    return "";
 }

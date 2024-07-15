@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useOrderbookStore } from '../store/useOrderbookStore';
 import { Transaction } from '../types';
 import Row from './Row';
 
-const Table: React.FC = () => {
+const Table: FC = () => {
   const { orders, fetchOrders } = useOrderbookStore();
   const [page, setPage] = useState(1);
   const [perPage] = useState(20); // You can make this a state as well if you want to change perPage dynamically

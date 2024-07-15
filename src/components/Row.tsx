@@ -1,40 +1,25 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import { Transaction } from '../types';
-import { getTrimmedAddress, getStatus, getAmountMultiplierExponent, getAssetShorthand } from '../utils/utils';
+import { 
+	getTrimmedAddress, 
+	getStatus, 
+	getAmountMultiplierExponent, 
+	getAssetShorthand, 
+	getChainIcon, 
+	getAssetIcon, 
+	getValidAmount 
+} from '../utils/utils';
 
 import complete from '../assets/complete.svg';
 import progress from '../assets/progress.svg';
-
-import BTCIcon from '../assets/icons/BTCAsset.svg';
-import WBTCIcon from '../assets/icons/WBTCAsset.svg';
-import arbitrumIcon from '../assets/icons/arbitrumChain.svg';
-import evmIcon from '../assets/icons/EVMChain.svg';
 
 interface RowProps {
   transaction: Transaction;
 }
 
-const getAmount = (swap: { amount: number }) => {
-  if (swap && swap.amount.toString().length < 10) return swap.amount;
-  return "";
-}
-
-const getAssetIcon = (asset: string) => {
-  if (asset === "BTC") return BTCIcon;
-  else if (asset === "WBTC") return WBTCIcon;
-  else return "";
-}
-
-const getChainIcon = (chain: string) => {
-  if (chain === "bitcoin") return "";
-  else if (chain === "ethereum_arbitrum") return arbitrumIcon;
-  else if (chain === "ethereum_sepolia" || chain === "ethereum") return evmIcon;
-  else return "";
-}
-
-const Row: React.FC<RowProps> = ({ transaction }) => {
+const Row: FC<RowProps> = ({ transaction }) => {
   const id = transaction.ID;
   const fromAddress = getTrimmedAddress(transaction.maker);
   const sentAsset = transaction.initiatorAtomicSwap.asset;
@@ -45,8 +30,8 @@ const Row: React.FC<RowProps> = ({ transaction }) => {
   const receivedChain = transaction.followerAtomicSwap.chain;
   const status = getStatus(Number(transaction.status));
   const exponent = getAmountMultiplierExponent(sentAsset, sentChain);
-  const sentAmount = (Number(getAmount(transaction.initiatorAtomicSwap)) * (10 ** exponent)).toFixed(6);
-  const receivedAmount = (Number(getAmount(transaction.followerAtomicSwap)) * (10 ** exponent)).toFixed(6);
+  const sentAmount = (Number(getValidAmount(transaction.initiatorAtomicSwap)) * (10 ** exponent)).toFixed(6);
+  const receivedAmount = (Number(getValidAmount(transaction.followerAtomicSwap)) * (10 ** exponent)).toFixed(6);
   const createdAt = formatDistanceToNow(new Date(transaction.CreatedAt), { addSuffix: true });
 
   return (

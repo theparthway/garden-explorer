@@ -1,41 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { useOrderbookStore } from '../store/useOrderbookStore';
 import { Transaction } from '../types';
-import { getStatus, getAmountMultiplierExponent, getAssetShorthand } from '../utils/utils';
+import { 
+  getStatus, 
+  getAmountMultiplierExponent, 
+  getAssetShorthand,
+  getChainIcon,
+  getAssetIcon,
+  getValidAmount,
+} from '../utils/utils';
 
 import complete from '../assets/complete.svg';
 import progress from '../assets/progress.svg';
 
 import rightArrow from '../assets/icons/rightArrow.svg';
 import leftArrow from '../assets/icons/leftArrow.svg';
-import BTCIcon from '../assets/icons/BTCAsset.svg';
-import WBTCIcon from '../assets/icons/WBTCAsset.svg';
-import arbitrumIcon from '../assets/icons/arbitrumChain.svg';
-import evmIcon from '../assets/icons/EVMChain.svg';
 
 interface TransactionDetailsProps {}
 
-const getAmount = (swap: { amount: number }) => {
-  if (swap && swap.amount.toString().length < 10) return swap.amount;
-  return "";
-}
-
-const getAssetIcon = (asset: string) => {
-  if (asset === "BTC") return BTCIcon;
-  else if (asset === "WBTC") return WBTCIcon;
-  else return "";
-}
-
-const getChainIcon = (chain: string) => {
-  if (chain === "bitcoin") return "";
-  else if (chain === "ethereum_arbitrum") return arbitrumIcon;
-  else if (chain === "ethereum_sepolia" || chain === "ethereum") return evmIcon;
-  else return "";
-}
-
-const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
+const TransactionDetails: FC<TransactionDetailsProps> = () => {
   const { id } = useParams<{ id: string }>();
   const fetchOrder = useOrderbookStore((state) => state.fetchOrder);
   const [transaction, setTransaction] = useState<Transaction | null>(null);
@@ -64,8 +49,8 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
   const depositAddress = transaction.followerAtomicSwap.redeemerAddress;
   const status = getStatus(Number(transaction.status));
   const exponent = getAmountMultiplierExponent(sentAsset, sentChain);
-  const sentAmount = (Number(getAmount(transaction.initiatorAtomicSwap)) * (10 ** exponent)).toFixed(6);
-  const receivedAmount = (Number(getAmount(transaction.followerAtomicSwap)) * (10 ** exponent)).toFixed(6);
+  const sentAmount = (Number(getValidAmount(transaction.initiatorAtomicSwap)) * (10 ** exponent)).toFixed(6);
+  const receivedAmount = (Number(getValidAmount(transaction.followerAtomicSwap)) * (10 ** exponent)).toFixed(6);
   const fee = Number(Number(sentAmount) - Number(receivedAmount)).toFixed(6);
   const createdAt = format(new Date(transaction.CreatedAt), 'yyyy-MM-dd HH:mm');
 

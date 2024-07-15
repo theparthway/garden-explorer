@@ -1,7 +1,7 @@
-import React from 'react';
+import { FC } from 'react';
 import Box from './Box';
 
-const Info: React.FC = () => {
+const Info: FC = () => {
   return (
     <div className="flex justify-between py-8">
       <Box header='Total Volume' total='$667,055,243.87' change={2016305.74} />
