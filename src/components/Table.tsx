@@ -40,7 +40,7 @@ const Table: React.FC = () => {
         </thead>
         <tbody>
           {orders.map((transaction: Transaction) => (
-            <Row transaction={transaction} />
+            <Row key={transaction.ID} transaction={transaction} />
           ))}
         </tbody>
       </table>
