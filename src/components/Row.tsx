@@ -51,36 +51,36 @@ const Row: React.FC<RowProps> = ({ transaction }) => {
 
   return (
     <tr key={transaction.ID}>
-      <td className="p-2 border-b border-gray-200">{createdAt}</td>
-      <td className="p-2 border-b border-gray-200">
-        <Link to={`/tx/${id}`}>{id}</Link>
-      </td>
-      <td className="p-2 border-b border-gray-200">{fromAddress}</td>
-      <td className="p-2 border-b border-gray-200">
-        <div className='flex items-center gap-2'>
-          {sentAmount} 
-          <img src={getAssetIcon(sentAssetShorthand)} alt={sentAssetShorthand} /> 
-          {getChainIcon(sentChain) !== "" && <img src={getChainIcon(sentChain)} alt={sentChain} />}
-        </div>
-      </td>
-      <td className="p-2 border-b border-gray-200">
-        <div className='flex items-center gap-2'>
-          {receivedAmount} 
-          <img src={getAssetIcon(receivedAssetShorthand)} alt={receivedAssetShorthand} />
-          {getChainIcon(receivedChain) !== "" && <img src={getChainIcon(receivedChain)} alt={receivedChain} />}
-        </div>
-      </td>
-      <td className={`p-2 border-b border-gray-200`}>
-        <div
-          className={`flex justify-evenly rounded-full py-2 text-center ${
-            status === 'Settled' ? 'bg-complete' : 'bg-progress'
-          }`}
-        >
-          {status}
-          <img src={`${status === 'Settled' ? complete : progress}`} alt="settled icon" />
-        </div>
-      </td>
-    </tr>
+        
+        <td className="p-2 border-b border-gray-200">{createdAt}</td>
+        <td className="p-2 border-b border-gray-200"><Link to={`/tx/${id}`}>{id}</Link></td>
+        <td className="p-2 border-b border-gray-200">{fromAddress}</td>
+        <td className="p-2 border-b border-gray-200">
+          <div className='flex items-center gap-2'>
+            {sentAmount} 
+            <img src={getAssetIcon(sentAssetShorthand)} alt={sentAssetShorthand} /> 
+            {getChainIcon(sentChain) !== "" && <img src={getChainIcon(sentChain)} alt={sentChain} />}
+          </div>
+        </td>
+        <td className="p-2 border-b border-gray-200">
+          <div className='flex items-center gap-2'>
+            {receivedAmount} 
+            <img src={getAssetIcon(receivedAssetShorthand)} alt={receivedAssetShorthand} />
+            {getChainIcon(receivedChain) !== "" && <img src={getChainIcon(receivedChain)} alt={receivedChain} />}
+          </div>
+        </td>
+        <td className={`p-2 border-b border-gray-200`}>
+          <div
+            className={`flex justify-evenly rounded-full py-2 text-center ${
+              status === 'Settled' ? 'bg-complete' : 'bg-progress'
+            }`}
+          >
+            {status}
+            <img src={`${status === 'Settled' ? complete : progress}`} alt="settled icon" />
+          </div>
+        </td>
+        
+      </tr>
   );
 };
 

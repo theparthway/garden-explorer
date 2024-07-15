@@ -1,37 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { format } from 'date-fns';
 import { useOrderbookStore } from '../store/useOrderbookStore';
 import { Transaction } from '../types';
-// import { formatDistanceToNow } from 'date-fns';
-import { getStatus } from '../utils/utils';
+import { getStatus, getAmountMultiplierExponent, getAssetShorthand } from '../utils/utils';
 
 import complete from '../assets/complete.svg';
 import progress from '../assets/progress.svg';
 
-// const getAmount = (swap: { amount: number }) => {
-//   if (swap && swap.amount.toString().length < 10) return swap.amount;
-//   return "";
-// }
+import rightArrow from '../assets/icons/rightArrow.svg';
+import leftArrow from '../assets/icons/leftArrow.svg';
+import BTCIcon from '../assets/icons/BTCAsset.svg';
+import WBTCIcon from '../assets/icons/WBTCAsset.svg';
+import arbitrumIcon from '../assets/icons/arbitrumChain.svg';
+import evmIcon from '../assets/icons/EVMChain.svg';
 
-const TransactionDetails: React.FC = () => {
+interface TransactionDetailsProps {}
+
+const getAmount = (swap: { amount: number }) => {
+  if (swap && swap.amount.toString().length < 10) return swap.amount;
+  return "";
+}
+
+const getAssetIcon = (asset: string) => {
+  if (asset === "BTC") return BTCIcon;
+  else if (asset === "WBTC") return WBTCIcon;
+  else return "";
+}
+
+const getChainIcon = (chain: string) => {
+  if (chain === "bitcoin") return "";
+  else if (chain === "ethereum_arbitrum") return arbitrumIcon;
+  else if (chain === "ethereum_sepolia" || chain === "ethereum") return evmIcon;
+  else return "";
+}
+
+const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
   const { id } = useParams<{ id: string }>();
   const fetchOrder = useOrderbookStore((state) => state.fetchOrder);
   const [transaction, setTransaction] = useState<Transaction | null>(null);
-
-  // if (transaction) {
-  //   const fromAddress = getTrimmedAddress(transaction?.maker);
-  //   const sentAsset = transaction.initiatorAtomicSwap.asset;
-  //   const sentAssetShorthand = getAssetShorthand(sentAsset);
-  //   const sentChain = transaction.initiatorAtomicSwap.chain;
-  //   const receivedAsset = transaction.followerAtomicSwap.asset;
-  //   const receivedAssetShorthand = getAssetShorthand(receivedAsset);
-  //   const receivedChain = transaction.followerAtomicSwap.chain;
-  //   const status = getStatus(Number(transaction.status));
-  //   const exponent = getAmountMultiplierExponent(sentAsset, sentChain);
-  //   const sentAmount = (Number(getAmount(transaction.initiatorAtomicSwap)) * (10 ** exponent)).toFixed(6);
-  //   const receivedAmount = (Number(getAmount(transaction.followerAtomicSwap)) * (10 ** exponent)).toFixed(6);
-  //   const createdAt = formatDistanceToNow(new Date(transaction.CreatedAt), { addSuffix: true });
-  // }
 
   useEffect(() => {
     const loadTransaction = async () => {
@@ -46,47 +53,97 @@ const TransactionDetails: React.FC = () => {
     return <div>Loading...</div>;
   }
 
+  const sentAsset = transaction.initiatorAtomicSwap.asset;
+  const sentAssetShorthand = getAssetShorthand(sentAsset);
+  const sentChain = transaction.initiatorAtomicSwap.chain;
+  const receivedAsset = transaction.followerAtomicSwap.asset;
+  const receivedAssetShorthand = getAssetShorthand(receivedAsset);
+  const receivedChain = transaction.followerAtomicSwap.chain;
+  const receiveAddress = (receivedAsset === "BTC") ? transaction.userBtcWalletAddress : transaction.taker;
+  const refundAddress = (sentAsset === "BTC") ? transaction.userBtcWalletAddress : transaction.maker;
+  const depositAddress = transaction.followerAtomicSwap.redeemerAddress;
+  const status = getStatus(Number(transaction.status));
+  const exponent = getAmountMultiplierExponent(sentAsset, sentChain);
+  const sentAmount = (Number(getAmount(transaction.initiatorAtomicSwap)) * (10 ** exponent)).toFixed(6);
+  const receivedAmount = (Number(getAmount(transaction.followerAtomicSwap)) * (10 ** exponent)).toFixed(6);
+  const fee = Number(Number(sentAmount) - Number(receivedAmount)).toFixed(6);
+  const createdAt = format(new Date(transaction.CreatedAt), 'yyyy-MM-dd HH:mm');
+
   return (
     <div className="flex justify-center mt-28">
       <div className="px-36 w-full">
-        <h1 className="text-2xl font-semibold mb-4">Transaction Details</h1>
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-semibold mb-4">Transaction Details</h1>
+          <a href="/"><img src={leftArrow} alt='left arrow' /></a>
+        </div>
         <table className="min-w-full text-right bg-white border border-border">
           <tbody>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">ID:</td>
               <td className="px-4 py-2">
                 <div className='flex justify-end gap-4'>
-                  {transaction.ID}
                   <div
-                    className={`flex justify-evenly rounded-full py-2 text-center ${
-                      transaction.status === 'Settled' ? 'bg-complete' : 'bg-progress'
+                    className={`flex gap-2 rounded-full p-2 text-center ${
+                      status === 'Settled' ? 'bg-complete' : 'bg-progress'
                     }`}
                   >
-                    {getStatus(Number(status))}
-                    <img src={`${transaction.status === 'Settled' ? complete : progress}`} alt="settled icon" />
+                    {status}
+                    <img src={`${status === 'Settled' ? complete : progress}`} alt="settled icon" />
                   </div>
                 </div>
               </td>
             </tr>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Transferred:</td>
-              <td className="px-4 py-2">{transaction.initiatorAtomicSwap.amount} {transaction.initiatorAtomicSwap.chain} - {transaction.followerAtomicSwap.amount} {transaction.followerAtomicSwap.chain}</td>
+              <td className="flex justify-end gap-4 px-4 py-2">
+                <div className='flex items-center gap-2'>
+                  {sentAmount} 
+                  <img src={getAssetIcon(sentAssetShorthand)} alt={sentAssetShorthand} /> 
+                  {getChainIcon(sentChain) !== "" && <img src={getChainIcon(sentChain)} alt={sentChain} />}
+                </div>
+                <img src={rightArrow} alt="right arrow" />
+                <div className='flex items-center gap-2'>
+                  {receivedAmount} 
+                  <img src={getAssetIcon(receivedAssetShorthand)} alt={receivedAssetShorthand} />
+                  {getChainIcon(receivedChain) !== "" && <img src={getChainIcon(receivedChain)} alt={receivedChain} />}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className="text-left px-4 py-2 font-semibold">Fees spent:</td>
+              <td className="px-4 py-2">{fee}</td>
             </tr>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Created At:</td>
-              <td className="px-4 py-2">{transaction.CreatedAt}</td>
+              <td className="px-4 py-2">{createdAt}</td>
             </tr>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Receive Address:</td>
-              <td className="px-4 py-2">{transaction.taker}</td>
+              <td className="px-4 py-2">{receiveAddress}</td>
             </tr>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Refund Address:</td>
-              <td className="px-4 py-2">{transaction.userBtcWalletAddress}</td>
+              <td className="px-4 py-2">{refundAddress}</td>
             </tr>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Deposit Address:</td>
-              <td className="px-4 py-2">{transaction.initiatorAtomicSwap.initiatorAddress}</td>
+              <td className="px-4 py-2">{depositAddress}</td>
+            </tr>
+            <tr>
+              <td className="text-left px-4 py-2 font-semibold">Deposit TX 1:</td>
+              <td className="px-4 py-2">{depositAddress}</td>
+            </tr>
+            {status === "Settled" && <tr>
+              <td className="text-left px-4 py-2 font-semibold">Deposit TX 2:</td>
+              <td className="px-4 py-2">{depositAddress}</td>
+            </tr>}
+            <tr>
+              <td className="text-left px-4 py-2 font-semibold">Counterparty Deposit TX:</td>
+              <td className="px-4 py-2">{}</td>
+            </tr>
+            <tr>
+              <td className="text-left px-4 py-2 font-semibold">Claim TX:</td>
+              <td className="px-4 py-2">{}</td>
             </tr>
           </tbody>
         </table>
