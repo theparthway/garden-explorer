@@ -16,17 +16,17 @@ const Table: FC = () => {
   const handlePrevPage = () => setPage(page - 1);
 
   return (
-    <div className="overflow-x-auto my-8 border-2 border-border rounded-lg">
+    <div className="overflow-x-auto mb-8 px-6 border-2 border-border rounded-2xl">
       <div className="flex justify-between p-4">
-        <h1>Transaction Data</h1>
+        <h1 className="text-xs font-medium">Transaction Data</h1>
         <div className="flex gap-2">
-          <a className="bg-light-gray py-2 px-4 rounded-full" href="">
+          <a className="bg-light-gray py-1 px-2 font-medium rounded-full" href="">
             Bitcoin
           </a>
-          <a className="bg-light-gray py-2 px-4 rounded-full" href="">
+          <a className="bg-light-gray py-1 px-2 font-medium rounded-full" href="">
             EVM
           </a>
-          <a className="bg-light-gray py-2 px-4 rounded-full" href="">
+          <a className="bg-light-gray py-1 px-2 font-medium rounded-full" href="">
             Solana
           </a>
         </div>
@@ -34,12 +34,12 @@ const Table: FC = () => {
       <table className="min-w-full bg-white rounded-lg">
         <thead className="px-12">
           <tr>
-            <th className="px-2 py-3 text-left text-xs font-semibold">Created at</th>
-            <th className="px-2 py-3 text-left text-xs font-semibold">ID</th>
-            <th className="px-2 py-3 text-left text-xs font-semibold">From address</th>
-            <th className="px-2 py-3 text-left text-xs font-semibold">Sent amount</th>
-            <th className="px-2 py-3 text-left text-xs font-semibold">Received amount</th>
-            <th className="px-2 py-3 text-left text-xs font-semibold">Status</th>
+            <th className="px-2 py-3 text-left text-xs font-medium">Created at</th>
+            <th className="px-2 py-3 text-left text-xs font-medium">ID</th>
+            <th className="px-2 py-3 text-left text-xs font-medium">From address</th>
+            <th className="px-2 py-3 text-left text-xs font-medium">Sent amount</th>
+            <th className="px-2 py-3 text-left text-xs font-medium">Received amount</th>
+            <th className="px-2 py-3 text-left text-xs font-medium">Status</th>
           </tr>
         </thead>
         <tbody>

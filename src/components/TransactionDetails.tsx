@@ -17,6 +17,7 @@ import progress from '../assets/progress.svg';
 
 import rightArrow from '../assets/icons/rightArrow.svg';
 import leftArrow from '../assets/icons/leftArrow.svg';
+import CopyButton from './CopyButton';
 
 interface TransactionDetailsProps {}
 
@@ -61,7 +62,7 @@ const TransactionDetails: FC<TransactionDetailsProps> = () => {
           <h1 className="text-2xl font-semibold mb-4">Transaction Details</h1>
           <a href="/"><img src={leftArrow} alt='left arrow' /></a>
         </div>
-        <table className="min-w-full text-right bg-white border border-border">
+        <table className="min-w-full rounded text-right bg-white border border-border">
           <tbody>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Order ID & Status:</td>
@@ -105,15 +106,24 @@ const TransactionDetails: FC<TransactionDetailsProps> = () => {
             </tr>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Receive Address:</td>
-              <td className="px-4 py-2">{receiveAddress}</td>
+              <td className="px-4 py-2">
+                {receiveAddress}
+                <CopyButton textToCopy={receiveAddress} />
+              </td>
             </tr>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Refund Address:</td>
-              <td className="px-4 py-2">{refundAddress}</td>
+              <td className="px-4 py-2">
+                {refundAddress}
+                <CopyButton textToCopy={refundAddress} />
+              </td>
             </tr>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Deposit Address:</td>
-              <td className="px-4 py-2">{depositAddress}</td>
+              <td className="px-4 py-2">
+                {depositAddress}
+                <CopyButton textToCopy={depositAddress} />
+              </td>
             </tr>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Deposit TX 1:</td>
