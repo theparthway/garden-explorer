@@ -70,7 +70,7 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
   const createdAt = format(new Date(transaction.CreatedAt), 'yyyy-MM-dd HH:mm');
 
   return (
-    <div className="flex justify-center mt-28">
+    <div className="flex justify-center mt-20">
       <div className="px-36 w-full">
         <div className="flex justify-between">
           <h1 className="text-2xl font-semibold mb-4">Transaction Details</h1>
@@ -131,11 +131,11 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
             </tr>
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Deposit TX 1:</td>
-              <td className="px-4 py-2">{depositAddress}</td>
+              <td className="px-4 py-2">{}</td>
             </tr>
             {status === "Settled" && <tr>
               <td className="text-left px-4 py-2 font-semibold">Deposit TX 2:</td>
-              <td className="px-4 py-2">{depositAddress}</td>
+              <td className="px-4 py-2">{}</td>
             </tr>}
             <tr>
               <td className="text-left px-4 py-2 font-semibold">Counterparty Deposit TX:</td>

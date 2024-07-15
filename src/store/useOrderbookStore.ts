@@ -4,7 +4,7 @@ import { Transaction } from '../types';
 
 interface OrderbookState {
   orders: Transaction[];
-  fetchOrders: () => Promise<void>;
+  fetchOrders: (page?: number, perPage?: number) => Promise<void>;
   fetchOrder: (id: string) => Promise<Transaction | null>;
 }
 
@@ -12,8 +12,8 @@ const orderbookProvider = new OrderbookProvider(import.meta.env.VITE_API_BASE_UR
 
 export const useOrderbookStore = create<OrderbookState>((set) => ({
   orders: [],
-  fetchOrders: async () => {
-    const orders = await orderbookProvider.getOrders();
+  fetchOrders: async (page = 1, perPage = 20) => {
+    const orders = await orderbookProvider.getOrders(page, perPage);
     set({ orders });
   },
   fetchOrder: async (id: string) => {

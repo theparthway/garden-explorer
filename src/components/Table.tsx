@@ -1,15 +1,19 @@
-// src/components/Table.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useOrderbookStore } from '../store/useOrderbookStore';
 import { Transaction } from '../types';
 import Row from './Row';
 
 const Table: React.FC = () => {
   const { orders, fetchOrders } = useOrderbookStore();
+  const [page, setPage] = useState(1);
+  const [perPage] = useState(20); // You can make this a state as well if you want to change perPage dynamically
 
   useEffect(() => {
-    fetchOrders();
-  }, [fetchOrders]);
+    fetchOrders(page, perPage);
+  }, [page, perPage, fetchOrders]);
+
+  const handleNextPage = () => setPage(page + 1);
+  const handlePrevPage = () => setPage(page - 1);
 
   return (
     <div className="overflow-x-auto my-8 border-2 border-border rounded-lg">
@@ -44,6 +48,15 @@ const Table: React.FC = () => {
           ))}
         </tbody>
       </table>
+      <div className="flex justify-between mt-4">
+        <button onClick={handlePrevPage} disabled={page === 1} className="bg-light-gray py-2 px-4 rounded-full">
+          Previous
+        </button>
+        <span>Page {page} of ...</span>
+        <button onClick={handleNextPage} className="bg-light-gray py-2 px-4 rounded-full">
+          Next
+        </button>
+      </div>
     </div>
   );
 };

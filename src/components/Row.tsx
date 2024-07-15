@@ -71,7 +71,7 @@ const Row: React.FC<RowProps> = ({ transaction }) => {
         </td>
         <td className={`p-2 border-b border-gray-200`}>
           <div
-            className={`flex justify-evenly rounded-full py-2 text-center ${
+            className={`flex justify-center gap-4 rounded-full py-2 text-center ${
               status === 'Settled' ? 'bg-complete' : 'bg-progress'
             }`}
           >
