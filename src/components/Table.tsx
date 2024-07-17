@@ -52,7 +52,7 @@ const Table: FC = () => {
         <button onClick={handlePrevPage} disabled={page === 1} className="bg-light-gray py-2 px-4 rounded-full">
           {`<`}
         </button>
-        <span>Page {page} of ...</span>
+        <span>Page {page} of 1384</span>
         <button onClick={handleNextPage} className="bg-light-gray py-2 px-4 rounded-full">
           {`>`}
         </button>

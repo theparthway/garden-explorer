@@ -42,16 +42,16 @@ const Row: FC<RowProps> = ({ transaction }) => {
         <td className="p-2 border-b font-medium border-gray-200">{fromAddress}</td>
         <td className="p-2 border-b font-medium border-gray-200">
           <div className='flex items-center gap-2'>
-            {sentAmount} 
-            <img src={getAssetIcon(sentAssetShorthand)} alt={sentAssetShorthand} /> 
-            {getChainIcon(sentChain) !== "" && <img src={getChainIcon(sentChain)} alt={sentChain} />}
+            {sentAmount}
+            <img src={getAssetIcon(sentAssetShorthand)} alt={sentAssetShorthand} title={sentAsset + sentChain} /> 
+            {getChainIcon(sentChain) !== "" && <img src={getChainIcon(sentChain)} alt={sentChain} title={sentChain} />}
           </div>
         </td>
         <td className="p-2 border-b font-medium border-gray-200">
           <div className='flex items-center gap-1'>
             {receivedAmount} 
-            <img src={getAssetIcon(receivedAssetShorthand)} alt={receivedAssetShorthand} />
-            {getChainIcon(receivedChain) !== "" && <img src={getChainIcon(receivedChain)} alt={receivedChain} />}
+            <img src={getAssetIcon(receivedAssetShorthand)} alt={receivedAssetShorthand} title={receivedAsset + receivedChain} />
+            {getChainIcon(receivedChain) !== "" && <img src={getChainIcon(receivedChain)} alt={receivedChain} title={receivedChain} />}
           </div>
         </td>
         <td className={`p-2 border-b font-medium border-gray-200`}>

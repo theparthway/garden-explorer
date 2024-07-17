@@ -45,9 +45,9 @@ const TransactionDetails: FC<TransactionDetailsProps> = () => {
   const receivedAsset = transaction.followerAtomicSwap.asset;
   const receivedAssetShorthand = getAssetShorthand(receivedAsset);
   const receivedChain = transaction.followerAtomicSwap.chain;
-  const receiveAddress = (receivedAsset === "BTC") ? transaction.userBtcWalletAddress : transaction.taker;
-  const refundAddress = (sentAsset === "BTC") ? transaction.userBtcWalletAddress : transaction.maker;
-  const depositAddress = transaction.followerAtomicSwap.redeemerAddress;
+  const receiveAddress = (receivedAssetShorthand === "BTC") ? transaction.userBtcWalletAddress : transaction.taker;
+  const refundAddress = (sentAssetShorthand === "BTC") ? transaction.userBtcWalletAddress : transaction.maker;
+  const depositAddress = "";
   const status = getStatus(Number(transaction.status));
   const exponent = getAmountMultiplierExponent(sentAsset, sentChain);
   const sentAmount = (Number(getValidAmount(transaction.initiatorAtomicSwap)) * (10 ** exponent)).toFixed(6);
@@ -62,18 +62,19 @@ const TransactionDetails: FC<TransactionDetailsProps> = () => {
           <h1 className="text-2xl font-semibold mb-4">Transaction Details</h1>
           <a href="/"><img src={leftArrow} alt='left arrow' /></a>
         </div>
-        <table className="min-w-full rounded text-right bg-white border border-border">
-          <tbody>
-            <tr>
-              <td className="text-left px-4 py-2 font-semibold">Order ID & Status:</td>
-              <td className="px-4 py-2">
-                <div className='flex justify-end items-center gap-4'>
-                  {id}
-                  <div
-                    className={`flex gap-2 rounded-full p-2 text-center ${
-                      status === 'Settled' ? 'bg-complete' : 'bg-progress'
-                    }`}
-                  >
+        <div className="overflow-hidden rounded-2xl border border-border">
+          <table className="min-w-full text-right">
+            <tbody>
+              <tr>
+                <td className="text-left px-4 py-2 font-semibold">Order ID & Status:</td>
+                <td className="px-4 py-2">
+                  <div className='flex justify-end items-center gap-4'>
+                    {id}
+                    <div
+                      className={`flex gap-2 rounded-full p-2 text-center ${
+                        status === 'Settled' ? 'bg-complete' : 'bg-progress'
+                      }`}
+                    >
                     {status}
                     <img src={`${status === 'Settled' ? complete : progress}`} alt="settled icon" />
                   </div>
@@ -122,7 +123,7 @@ const TransactionDetails: FC<TransactionDetailsProps> = () => {
               <td className="text-left px-4 py-2 font-semibold">Deposit Address:</td>
               <td className="px-4 py-2">
                 {depositAddress}
-                <CopyButton textToCopy={depositAddress} />
+                {/* <CopyButton textToCopy={depositAddress} /> */}
               </td>
             </tr>
             <tr>
@@ -145,7 +146,8 @@ const TransactionDetails: FC<TransactionDetailsProps> = () => {
         </table>
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default TransactionDetails;

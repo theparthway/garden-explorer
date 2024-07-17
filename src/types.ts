@@ -17,6 +17,6 @@ export interface Transaction {
       chain: string;
       asset: string;
     }
-    status: string;
+    status: number;
   }
   

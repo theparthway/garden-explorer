@@ -24,7 +24,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({ textToCopy }) => {
       onClick={handleCopy}
       className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none"
     >
-      <img src={copied ? copyIcon : tickmarkIcon} alt='copy' />
+      <img src={copied ? tickmarkIcon : copyIcon} alt='copy' />
     </button>
   );
 };

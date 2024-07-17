@@ -19,5 +19,5 @@ export const useOrderbookStore = create<OrderbookState>((set) => ({
   fetchOrder: async (id: string) => {
     const order = await orderbookProvider.getOrder(id);
     return order;
-  }
+  },
 }));
