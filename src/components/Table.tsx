@@ -6,7 +6,7 @@ import Row from './Row';
 const Table: FC = () => {
   const { orders, fetchOrders } = useOrderbookStore();
   const [page, setPage] = useState(1);
-  const [perPage] = useState(20); // You can make this a state as well if you want to change perPage dynamically
+  const [perPage] = useState(20);
 
   useEffect(() => {
     fetchOrders(page, perPage);

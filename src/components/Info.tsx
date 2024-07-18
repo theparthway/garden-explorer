@@ -6,7 +6,6 @@ import { CIRCULATING_SEED_SUPPLY } from '../constants/global';
 const Info: FC = () => {
   const [totalVolume, setTotalVolume] = useState<number>(0);
   const [totalStaked, setTotalStaked] = useState<number>(0);
-  const [dailyVolume, setDailyVolume] = useState<number>(0);
   const percentageSeedLocked = Math.min(
     (+totalStaked * 100) / CIRCULATING_SEED_SUPPLY,
     100
@@ -21,11 +20,6 @@ const Info: FC = () => {
     const fetchTotalStaked = async () => {
       const staked = await getTotalStaked();
       setTotalStaked(staked);
-    }
-
-    const fetchDailyVolume = async () => {
-      const dailyVol = await getDailyVolume();
-      
     }
 
     fetchVolume();

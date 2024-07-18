@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import copyIcon from '../assets/icons/copy.svg';
 import tickmarkIcon from '../assets/icons/tickmark.svg';
 
@@ -6,7 +6,7 @@ interface CopyButtonProps {
   textToCopy: string;
 }
 
-const CopyButton: React.FC<CopyButtonProps> = ({ textToCopy }) => {
+const CopyButton: FC<CopyButtonProps> = ({ textToCopy }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {

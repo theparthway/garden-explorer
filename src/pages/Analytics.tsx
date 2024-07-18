@@ -1,7 +1,7 @@
-import React from 'react';
+import { FC } from 'react';
 import Info from '../components/Info';
 
-const Analytics: React.FC = () => {
+const Analytics: FC = () => {
 
   return (
     <div className="py-4 px-60 shadow rounded-lg">
