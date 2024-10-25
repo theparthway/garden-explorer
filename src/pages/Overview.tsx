@@ -9,7 +9,7 @@ const Overview: FC = () => {
   }
 
   return (
-    <div className="py-4 px-60 shadow rounded-lg">
+    <div className="py-4 px-8 lg:px-60 shadow rounded-lg">
       <SearchBar onSearch={handleSearch} />
       <Info />
       <Table />

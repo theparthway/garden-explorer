@@ -13,7 +13,7 @@ const CopyButton: FC<CopyButtonProps> = ({ textToCopy }) => {
     try {
       await navigator.clipboard.writeText(textToCopy);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+      setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error('Failed to copy text: ', error);
     }
@@ -22,7 +22,7 @@ const CopyButton: FC<CopyButtonProps> = ({ textToCopy }) => {
   return (
     <button
       onClick={handleCopy}
-      className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none"
+      className="px-2 py-2 text-white rounded-md"
     >
       <img src={copied ? tickmarkIcon : copyIcon} alt='copy' />
     </button>

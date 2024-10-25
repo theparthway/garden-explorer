@@ -5,7 +5,7 @@ import Row from './Row';
 
 const Table: FC = () => {
   const { orders, fetchOrders } = useOrderbookStore();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1433);
   const [perPage] = useState(20);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const Table: FC = () => {
         <button onClick={handlePrevPage} disabled={page === 1} className="bg-light-gray py-2 px-4 rounded-full">
           {`<`}
         </button>
-        <span>Page {page} of 1384</span>
+        <span>Page {page} of 1433</span>
         <button onClick={handleNextPage} className="bg-light-gray py-2 px-4 rounded-full">
           {`>`}
         </button>

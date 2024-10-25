@@ -59,14 +59,14 @@ const TransactionDetails: FC<TransactionDetailsProps> = () => {
     <div className="flex justify-center mt-20">
       <div className="px-36 w-full">
         <div className="flex justify-between">
-          <h1 className="text-2xl font-semibold mb-4">Transaction Details</h1>
+          <h1 className="text-4xl font-bold mb-4">Transaction Details</h1>
           <a href="/"><img src={leftArrow} alt='left arrow' /></a>
         </div>
         <div className="overflow-hidden rounded-2xl border border-border">
           <table className="min-w-full text-right">
             <tbody>
               <tr>
-                <td className="text-left px-4 py-2 font-semibold">Order ID & Status:</td>
+                <td className="text-left px-4 py-2 font-medium">Order ID & Status:</td>
                 <td className="px-4 py-2">
                   <div className='flex justify-end items-center gap-4'>
                     {id}
@@ -82,7 +82,7 @@ const TransactionDetails: FC<TransactionDetailsProps> = () => {
               </td>
             </tr>
             <tr>
-              <td className="text-left px-4 py-2 font-semibold">Transferred:</td>
+              <td className="text-left px-4 py-2 font-medium">Transferred:</td>
               <td className="flex justify-end gap-4 px-4 py-2">
                 <div className='flex items-center gap-2'>
                   {sentAmount} 
@@ -98,48 +98,48 @@ const TransactionDetails: FC<TransactionDetailsProps> = () => {
               </td>
             </tr>
             <tr>
-              <td className="text-left px-4 py-2 font-semibold">Fees spent:</td>
+              <td className="text-left px-4 py-2 font-medium">Fees spent:</td>
               <td className="px-4 py-2">{fee}</td>
             </tr>
             <tr>
-              <td className="text-left px-4 py-2 font-semibold">Created At:</td>
+              <td className="text-left px-4 py-2 font-medium">Created At:</td>
               <td className="px-4 py-2">{createdAt}</td>
             </tr>
             <tr>
-              <td className="text-left px-4 py-2 font-semibold">Receive Address:</td>
+              <td className="text-left px-4 py-2 font-medium">Receive Address:</td>
               <td className="px-4 py-2">
                 {receiveAddress}
                 <CopyButton textToCopy={receiveAddress} />
               </td>
             </tr>
             <tr>
-              <td className="text-left px-4 py-2 font-semibold">Refund Address:</td>
+              <td className="text-left px-4 py-2 font-medium">Refund Address:</td>
               <td className="px-4 py-2">
                 {refundAddress}
                 <CopyButton textToCopy={refundAddress} />
               </td>
             </tr>
             <tr>
-              <td className="text-left px-4 py-2 font-semibold">Deposit Address:</td>
+              <td className="text-left px-4 py-2 font-medium">Deposit Address:</td>
               <td className="px-4 py-2">
                 {depositAddress}
                 {/* <CopyButton textToCopy={depositAddress} /> */}
               </td>
             </tr>
             <tr>
-              <td className="text-left px-4 py-2 font-semibold">Deposit TX 1:</td>
+              <td className="text-left px-4 py-2 font-medium">Deposit TX 1:</td>
               <td className="px-4 py-2">{}</td>
             </tr>
             {status === "Settled" && <tr>
-              <td className="text-left px-4 py-2 font-semibold">Deposit TX 2:</td>
+              <td className="text-left px-4 py-2 font-medium">Deposit TX 2:</td>
               <td className="px-4 py-2">{}</td>
             </tr>}
             <tr>
-              <td className="text-left px-4 py-2 font-semibold">Counterparty Deposit TX:</td>
+              <td className="text-left px-4 py-2 font-medium">Counterparty Deposit TX:</td>
               <td className="px-4 py-2">{}</td>
             </tr>
             <tr>
-              <td className="text-left px-4 py-2 font-semibold">Claim TX:</td>
+              <td className="text-left px-4 py-2 font-medium">Claim TX:</td>
               <td className="px-4 py-2">{}</td>
             </tr>
           </tbody>

@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 
 const Layout: FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className="min-h-screen font-satoshi bg-white">
+    <div className="min-h-screen font-satoshi bg-off-white">
       <header className="">
         <Navbar />
       </header>
